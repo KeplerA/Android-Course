@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="strawberry">#FFD91B1B</color>
+    <color name="strawberryLight">#FFF77575</color>
+    <color name="strawberryLightest">#FFF7BBBB</color>
+    <color name="strawberryDark">#FF833E3E</color>
+    <color name="strawberryDarkest">#FF610202</color>
+
+    <color name="nut">#FFD9731B</color>
+    <color name="nutLight">#FFF7B175</color>
+    <color name="nutLightest">#FFF7D7BB</color>
+    <color name="nutDark">#FF835E3E</color>
+    <color name="nutDarkest">#FF612E02</color>
+
+    <color name="banana">#FFD9A91B</color>
+    <color name="bananaLight">#FFF7D775</color>
+    <color name="bananaLightest">#FFF7E8BB</color>
+    <color name="bananaDark">#FF83723E</color>
+    <color name="bananaDarkest">#FF614902</color>
+
+    <color name="lime">#FF65C118</color>
+    <color name="limeLight">#FFADF373</color>
+    <color name="limeLightest">#FFD2F3B7</color>
+    <color name="limeDark">#FF537537</color>
+    <color name="limeDarkest">#FF285602</color>
+
+    <color name="blueberry">#FF1F4291</color>
+    <color name="blueberryLight">#FF7B9DE9</color>
+    <color name="blueberryLightest">#FFB6C5E9</color>
+    <color name="blueberryDark">#FF2E3B58</color>
+    <color name="blueberryDarkest">#FF031641</color>
+
+    <color name="grape">#FF501D93</color>
+    <color name="grapeLight">#FFA979E9</color>
+    <color name="grapeLightest">#FFCCB5E9</color>
+    <color name="grapeDark">#FF402E59</color>
+    <color name="grapeDarkest">#FF1E0342</color>
+
+    <color name="raspberry">#FFAE166C</color>
+    <color name="raspberryLight">#FFEF71B8</color>
+    <color name="raspberryLightest">#FFEFB4D5</color>
+    <color name="raspberryDark">#FF693251</color>
+    <color name="raspberryDarkest">#FF4D022D</color>
+
+    <color name="gray">#FFE2E2E2</color>
+    <color name="grayLight">#FFE9E9E9</color>
+    <color name="grayLightest">#FFEFEFEF</color>
+    <color name="grayDark">#FFAFAFAF</color>
+    <color name="grayDarkest">#FF939393</color>
+
+</resources>
