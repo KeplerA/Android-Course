@@ -79,13 +79,11 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import kotlin.math.abs
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         setContent {
             HelloAppTheme {
                 Scaffold {
@@ -112,30 +110,19 @@ fun NoteEditScreen(modifier: Modifier = Modifier) {
     Column (modifier = modifier.then(
         Modifier
             .fillMaxSize()
-            .padding(10.dp))) {
+            .padding(10.dp)),
+        verticalArrangement = Arrangement.spacedBy(10.dp)) {
         NoteContent()
-        Spacer(
-            Modifier
-                .fillMaxWidth()
-                .height(10.dp))
         NoteDestructionDate()
-        Spacer(
-            Modifier
-                .fillMaxWidth()
-                .height(10.dp))
         NoteColor()
-        Spacer(
-            Modifier
-                .fillMaxWidth()
-                .height(10.dp))
         NoteImportance()
     }
 }
 
 @Composable
 fun NoteContent() {
-    var title by rememberSaveable{mutableStateOf("")}
-    var content by rememberSaveable{mutableStateOf("")}
+    var title by rememberSaveable{mutableStateOf<String?>(null)}
+    var content by rememberSaveable{mutableStateOf<String?>(null)}
 
     Box(modifier = Modifier
         .clip(shape = RoundedCornerShape(30.dp))
@@ -145,7 +132,7 @@ fun NoteContent() {
         ){
         Column{
             TextField(
-                title,
+                value = title ?: "",
                 {title = it},
                 modifier = Modifier
                     .fillMaxWidth()
@@ -170,7 +157,7 @@ fun NoteContent() {
                     .height(10.dp))
 
             TextField(
-                content,
+                value = content ?: "",
                 {content = it},
                 modifier = Modifier
                     .fillMaxWidth()
@@ -293,12 +280,12 @@ fun DatePickerModal(
             },
                 enabled = isDateValid
             ) {
-                Text("OK", color = if (isDateValid) selectedColor.dark else Color(0x50000000))
+                Text("ОК", color = if (isDateValid) selectedColor.dark else Color(0x50000000))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel", color = selectedColor.dark)
+                Text("Отменить", color = selectedColor.dark)
             }
         },
         colors = DatePickerDefaults.colors(
@@ -404,14 +391,14 @@ fun TimePickerDialog(
         dismissButton = {
             TextButton(onClick = { onDismiss() }
             ) {
-                Text("Dismiss")
+                Text("Отменить")
             }
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() },
                 enabled = confirmEnabled
             ) {
-                Text("OK")
+                Text("ОК")
             }
         },
         text = { content() }
@@ -588,7 +575,7 @@ fun CustomColorPicker(
                 onConfirm()
                 onDismiss()
             }) {
-                Text("Сохранить")
+                Text("ОК")
             }
         },
         dismissButton = {
@@ -654,65 +641,7 @@ fun NoteImportance() {
     }
 }
 
-fun rgbToHsl(rf: Float, gf: Float, bf: Float): FloatArray {
-    val max = maxOf(rf, gf, bf)
-    val min = minOf(rf, gf, bf)
-    val delta = max - min
 
-    val l = (max + min) / 2f
-    val s: Float
-    val h: Float
-
-    if (delta == 0f) {
-        h = 0f
-        s = 0f
-    } else {
-        s = if (l < 0.5f) delta / (max + min) else delta / (2f - max - min)
-        h = when (max) {
-            rf -> ((gf -bf) / delta + if (gf < bf) 6f else 0f) * 60f
-            gf -> ((bf - rf) / delta + 2f) * 60f
-            else -> ((rf - gf) / delta + 4f) * 60f
-        }
-    }
-    return floatArrayOf(h % 360, s, l)
-}
-
-fun hslToRgb(h: Float, s: Float, l: Float): Color {
-    val c = (1f - abs(2 * l - 1)) * s
-    val x = c * (1f - abs((h / 60f) % 2 - 1))
-    val m = l - c / 2f
-
-    val (r1, g1, b1) = when {
-        h < 60f -> Triple(c, x, 0f)
-        h < 120f -> Triple(x, c, 0f)
-        h < 180f -> Triple(0f, c, x)
-        h < 240f -> Triple(0f, x, c)
-        h < 300f -> Triple(x, 0f, c)
-        else -> Triple(c, 0f, x)
-    }
-
-    val r = ((r1 + m) * 255).toInt().coerceIn(0, 255)
-    val g = ((g1 + m) * 255).toInt().coerceIn(0, 255)
-    val b = ((b1 + m) * 255).toInt().coerceIn(0, 255)
-
-    return Color(r, g, b)
-}
-
-fun generateColorShades(baseColor: Color) {
-    val r = baseColor.red
-    val g = baseColor.green
-    val b = baseColor.blue
-
-    val (h, s, l) = rgbToHsl(r, g, b)
-
-    custom = NoteColorPalette(
-        baseColor,
-        hslToRgb(h, s, (l + 0.2f).coerceIn(0f, 1f)),
-        hslToRgb(h, s, (l + 0.4f).coerceIn(0f, 1f)),
-        hslToRgb(h, s, (l * 0.6f).coerceIn(0f, 1f)),
-        hslToRgb(h, s, (l * 0.8f).coerceIn(0f, 1f))
-        )
-}
 
 @Preview(showBackground = true)
 @Composable
