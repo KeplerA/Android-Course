@@ -48,14 +48,14 @@ fun hslToRgb(h: Float, s: Float, l: Float): Color {
     return Color(r, g, b)
 }
 
-fun generateColorShades(baseColor: Color) {
+fun generateColorShades(baseColor: Color): NoteColorPalette {
     val r = baseColor.red
     val g = baseColor.green
     val b = baseColor.blue
 
     val (h, s, l) = rgbToHsl(r, g, b)
 
-    custom = NoteColorPalette(
+    return NoteColorPalette(
         baseColor,
         hslToRgb(h, s, (l + 0.2f).coerceIn(0f, 1f)),
         hslToRgb(h, s, (l + 0.4f).coerceIn(0f, 1f)),
